@@ -1,0 +1,63 @@
+<header>
+    <link rel="stylesheet/css" type="text/css" href="builderStyle.css"/> 
+    <link rel="stylesheet" href="builderStyle.css"/>
+  <div class="nav">
+    <div class="nav-links">
+    <a target="_self" href="builder.html">Burger Builder</a>
+    <a  target="_self" href="myburger.html" target="_blank">My Burgers</a>
+    <a  target="_self" href="community.html" target="_blank">Community</a>
+    </div>
+  </div>
+  <div id="counter"></div>
+</header>
+<div class="area" >
+   <ul class="circles">
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+            </ul>
+<body onLoad="start(this)">
+  <div class="wrapper">
+    <div class="burger" id="burger">
+      <div class="bun top-bun"></div>
+      <div class="cheese"></div>
+      <div class="patty"></div>
+      <div class="cheese"></div>
+      <div class="meat"></div>
+      <div class="lettuce"></div>
+      <div class="tomato"></div>
+      <div class="onion"></div>
+      <!-- <div class="pickle">
+        <div class="pickles"></div>
+        <div class="pickles"></div>
+      </div> -->
+      <div class="ketchup"></div>
+      <div class="mustard"></div>
+      <div class="mayo"></div>
+      <div class="bun bottom-bun"></div>
+    </div>
+    <ol id="burger-builder-ul">
+      <div class="Listheader">Layers:</div>
+    </ol>
+    <div class="burger-builder-container2">
+      <input id="burgerName" placeholder="  Burger Name" class="burger-builder-textarea"></input>
+      <textarea id="burgerDescription" placeholder="  Burger Description (optional)" class="burger-builder-textarea1"></textarea>
+    </div>
+    <div class="burger-builder-container">
+      <button class="buttonDel" onclick="deleter(this)">Delete All</button>
+      <button class="buttonCre" onclick="create(this)">Create</button>
+    </div>
+    <div class="burger-builder-container3">
+      <nav id="buttons"></nav>
+    </div>
+  </div>
+    <script src="builder.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/less@4.1.1" ></script>
+</body>
