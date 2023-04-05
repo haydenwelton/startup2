@@ -76,7 +76,11 @@ const deleter = (btn) => {
 };
 
 const create = (btn) => {
+  const userName = this.getPlayerName();
+  const date = new Date().toLocaleDateString();
   const burgerData = {
+    user: userName,
+    date: date,
     name: burgerNameValue,
     description: burgerDescriptionValue,
     ingredients: burgerIngredients
@@ -84,5 +88,57 @@ const create = (btn) => {
   console.log('data', burgerData)
   console.log('saving')
   console.log('resetting')
+  saveBurger(burgerData)
   reset()
 };
+
+async function saveBurger(burgerData) {
+  try {
+    const response = await fetch('/api/burgers', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify(burgerData),
+    });
+
+    // Store what the service gave us as the high scores
+    const burgers = await response.json();
+    localStorage.setItem('burgers', JSON.stringify(burgers));
+  } catch {
+    // If there was an error then just track scores locally
+    this.updateScoresLocal(burgerData);
+  }
+}
+
+async function updateScoresLocal(newBurger) {
+  let burgers = [];
+  const burgersText = localStorage.getItem('burgers');
+  if (burgersText) {
+    burgers = JSON.parse(burgersText);
+  }
+
+  let found = false;
+  for (const [i, prevBurger] of burgers.entries()) {
+    if (newBurger > prevBurger.burger) {
+      burgers.splice(i, 0, newBurger);
+      found = true;
+      break;
+    }
+  }
+
+  if (!found) {
+    burgers.push(newBurger);
+  }
+
+  if (burgers.length > 10) {
+    burgers.length = 10;
+  }
+
+  localStorage.setItem('burgers', JSON.stringify(burgers));
+}
+
+
+
+
+function getPlayerName() {
+  return localStorage.getItem('userName') ?? 'Mystery user';
+}

@@ -6,23 +6,36 @@
       class="home-image"
     />
     <h1 class="home-text">Build-A-Burger</h1>
-    <h3 class="LoginHeader">Login</h3>
-    <div class="home-row1">
-      <span class ="Loginbars">Username:  </span>
-      <input type="text" class="input" />
+    <div id="loginControls" style="display: none">
+      <h3 class="LoginHeader">Login</h3>
+      <div class="home-row1">
+        <span class ="Loginbars">Username:  </span>
+        <input type="text" class="input" id="userName"/>
+      </div>
+      <div class="home-row2">
+        <span class ="Loginbars">Password:  </span>
+        <input type="text" class="input" id="userPassword"/>
+      </div>
+      <button class="SignIn" onclick="loginUser()">Sign in</button>
+      <button class="Register" onclick="createUser()">Register</button>
     </div>
-    <div class="home-row2">
-      <span class ="Loginbars">Password:  </span>
-      <input type="text" class="input" />
+    <div id="playControls" style="display: none">
+      <button type="button" class="btn btn-primary" onclick="play()">
+        Play
+      </button>
+      <button type="button" class="btn btn-secondary" onclick="logout()">
+        Logout
+      </button>
     </div>
-    <div class="home-container1">
-      <input type="checkbox" checked="true" class="home-checkbox" />
-      <span class="home-text2">Remember Me</span>
-    </div>
-    <button class="SignIn">Sign in</button>
     <a href="myburger.html">Temporary link to other pages</a>
     <div class="github-link">
   <a href="https://github.com/haydenwelton/startup" target="_blank">View on GitHub</a>
 </div>
   </div>
+  <script src="login.js"></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+    crossorigin="anonymous"
+  ></script>
 </div>

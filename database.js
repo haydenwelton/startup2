@@ -42,6 +42,11 @@ function addBurger(burger) {
   burgerCollection.insertOne(burger);
 }
 
+async function getUserBurgers(email) {
+    const burgers = await burgerCollection.find({ email: email }).toArray();
+    return burgers;
+}
+
 function getAllBurgers() {
     // Return all burgers from mongo burger collection
     return burgerCollection.all();
@@ -52,5 +57,6 @@ module.exports = {
   getUserByToken,
   createUser,
   addBurger,
+  getUserBurgers,
   getAllBurgers,
 };
