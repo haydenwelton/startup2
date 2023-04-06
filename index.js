@@ -4,6 +4,8 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const DB = require('./database.js');
+const { PeerProxy } = require('./peerProxy.js');
+
 
 const authCookieName = 'token';
 
@@ -93,7 +95,7 @@ secureApiRouter.get('/community/burgers', async (req, res) => {
 });
 
 // SubmitBurger
-secureApiRouter.post('burger', async (req, res) => {
+secureApiRouter.post('/burger', async (req, res) => {
     console.log("HIT")
     try {
       const burgerData = req.body;

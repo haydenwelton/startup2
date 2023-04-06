@@ -1,3 +1,9 @@
+// PeerProxy.js initialization
+// const peer = new Peer();
+// let dataConnection;
+// const socket = new WebSocket("ws://localhost:4000");
+
+
 const burger = document.getElementById("burger");
 const burgerName = document.getElementById("burgerName");
 const burgerDescription = document.getElementById("burgerDescription");
@@ -68,6 +74,12 @@ const start = () => {
     reset();
   generateButtons();
   handleDataInputs()
+
+      // // establish data connection with the server
+      // dataConnection = peer.connect('server');
+      // dataConnection.on('open', () => {
+      //     console.log('Data connection established with server');
+      // });
 };
 
 const deleter = (btn) => {
@@ -117,7 +129,7 @@ const submitBurger = async () => {
         ingredients: burgerIngredients
       })
     });
- 
+    // socket.send(JSON.stringify(burgerData));
     if (!response.ok) {
       const error = await response.json();
       throw new Error(error.msg || 'Unable to add burger');
@@ -185,3 +197,14 @@ const submitBurger = async () => {
 function getPlayerName() {
   return localStorage.getItem('userName') ?? 'Mystery user';
 }
+
+
+
+// socket.onmessage = event => {
+//   const data = JSON.parse(event.data);
+//   const message = `${data.user} created a burger named ${data.name}`;
+//   const chatLog = document.getElementById("chat-log");
+//   const logEntry = document.createElement("li");
+//   logEntry.textContent = message;
+//   chatLog.appendChild(logEntry);
+// };
