@@ -39,13 +39,14 @@ async function createUser(email, password) {
 }
 
 function addBurger(burger) {
+    console.log("HIT ADD")
   burgerCollection.insertOne(burger);
 }
 
-async function getUserBurgers(email) {
-    const burgers = await burgerCollection.find({ email: email }).toArray();
-    return burgers;
-}
+// async function getUserBurgers(email) {
+//     const burgers = await burgerCollection.find({ email: email }).toArray();
+//     return burgers;
+// }
 
 function getAllBurgers() {
     // Return all burgers from mongo burger collection
@@ -57,6 +58,6 @@ module.exports = {
   getUserByToken,
   createUser,
   addBurger,
-  getUserBurgers,
+//   getUserBurgers,
   getAllBurgers,
 };

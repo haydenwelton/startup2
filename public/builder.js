@@ -36,7 +36,6 @@ const generateButtons = () => {
     button.innerText = filling;
     button.onclick = function() { 
       addFilling(filling);
-      addItem(filling);
     };
     button.addEventListener("click", () => {
     audio.play();
@@ -83,60 +82,104 @@ const create = (btn) => {
     date: date,
     name: burgerNameValue,
     description: burgerDescriptionValue,
-    ingredients: burgerIngredients
-  }
+    ingredients: burgerIngredients,
+  };
   console.log('data', burgerData)
   console.log('saving')
   console.log('resetting')
-  saveBurger(burgerData)
-  reset()
+  // saveBurger(burgerData)
+  submitBurger()
 };
 
-async function saveBurger(burgerData) {
+const submitBurger = async () => {
+  const userName = this.getPlayerName();
+  const date = new Date().toLocaleDateString();
+  if (!burgerName.value) {
+    alert('Please enter a burger name');
+    return;
+  }
+ 
+  if (!burgerIngredients.length) {
+    alert('Please add at least one ingredient to your burger');
+    return;
+  }
   try {
-    const response = await fetch('/api/burgers', {
+    const response = await fetch('/api/burger', {
       method: 'POST',
-      headers: { 'content-type': 'application/json' },
-      body: JSON.stringify(burgerData),
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        user: userName,
+        date: date,
+        name: burgerName.value,
+        description: burgerDescription.value,
+        ingredients: burgerIngredients
+      })
     });
-
-    // Store what the service gave us as the high scores
-    const burgers = await response.json();
-    localStorage.setItem('burgers', JSON.stringify(burgers));
-  } catch {
-    // If there was an error then just track scores locally
-    this.updateScoresLocal(burgerData);
-  }
-}
-
-async function updateScoresLocal(newBurger) {
-  let burgers = [];
-  const burgersText = localStorage.getItem('burgers');
-  if (burgersText) {
-    burgers = JSON.parse(burgersText);
-  }
-
-  let found = false;
-  for (const [i, prevBurger] of burgers.entries()) {
-    if (newBurger > prevBurger.burger) {
-      burgers.splice(i, 0, newBurger);
-      found = true;
-      break;
+ 
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.msg || 'Unable to add burger');
     }
+    reset();
+  } catch (error) {
+    console.error(error);
+    alert('Unable to add burger');
   }
-
-  if (!found) {
-    burgers.push(newBurger);
-  }
-
-  if (burgers.length > 10) {
-    burgers.length = 10;
-  }
-
-  localStorage.setItem('burgers', JSON.stringify(burgers));
-}
+ };
 
 
+// async function saveBurger(burgerData) {
+//   console.log("BLAM1")
+//   try {
+//     const response = await fetch('/api/burger', {
+//       method: 'POST',
+//       headers: {
+//         'Content-Type': 'application/json'
+//       },
+//       body: JSON.stringify(burgerData)
+//     });
+//     console.log("BLAM2")
+//     if (!response.ok) {
+//       throw new Error('Network response was not ok');
+//     }
+//     console.log("BLAM3")
+//     // const data = await response.json();
+//     // console.log(data);
+//     console.log("BLAM4")
+//   } catch (error) {
+//     console.error('There was a problem with the fetch operation:', error);
+//   }
+// }
+
+// async function updateScoresLocal(newBurger) {
+//   console.log("LOCALLY STORED")
+//   let burgers = [];
+//   const burgersText = localStorage.getItem('burgers');
+//   if (burgersText) {
+//     burgers = JSON.parse(burgersText);
+//   }
+
+//   let found = false;
+//   for (const [i, prevBurger] of burgers.entries()) {
+//     if (newBurger > prevBurger.burger) {
+//       burgers.splice(i, 0, newBurger);
+//       found = true;
+//       break;
+//     }
+//   }
+
+//   if (!found) {
+//     burgers.push(newBurger);
+//   }
+
+//   if (burgers.length > 10) {
+//     burgers.length = 10;
+//   }
+
+//   localStorage.setItem('burgers', JSON.stringify(burgers));
+// }
 
 
 function getPlayerName() {

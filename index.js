@@ -2,6 +2,7 @@ const cookieParser = require('cookie-parser');
 const bcrypt = require('bcrypt');
 const express = require('express');
 const app = express();
+const bodyParser = require('body-parser');
 const DB = require('./database.js');
 
 const authCookieName = 'token';
@@ -27,6 +28,7 @@ apiRouter.post('/auth/create', async (req, res) => {
   if (await DB.getUser(req.body.email)) {
     res.status(409).send({ msg: 'Existing user' });
   } else {
+    console.log("CREATE USER")
     const user = await DB.createUser(req.body.email, req.body.password);
 
     // Set the cookie
@@ -40,6 +42,7 @@ apiRouter.post('/auth/create', async (req, res) => {
 
 // GetAuth token for the provided credentials
 apiRouter.post('/auth/login', async (req, res) => {
+    console.log("LOGIN")
   const user = await DB.getUser(req.body.email);
   if (user) {
     if (await bcrypt.compare(req.body.password, user.password)) {
@@ -73,6 +76,7 @@ var secureApiRouter = express.Router();
 apiRouter.use('/api', secureApiRouter);
 
 secureApiRouter.use(async (req, res, next) => {
+    console.log("SECUREAPIROUTER");
   const authToken = req.cookies[authCookieName];
   const user = await DB.getUserByToken(authToken);
   if (user) {
@@ -82,18 +86,24 @@ secureApiRouter.use(async (req, res, next) => {
   }
 });
 
-// GetScores
+// GetBurgers
 secureApiRouter.get('/community/burgers', async (req, res) => {
-  const scores = await DB.getAllBurgers();
-  res.send(scores);
+  const burgers = await DB.getAllBurgers();
+  res.send(burgers);
 });
 
-// SubmitScore
-secureApiRouter.post('/score', async (req, res) => {
-  await DB.addScore(req.body);
-  const scores = await DB.getHighScores();
-  res.send(scores);
-});
+// SubmitBurger
+secureApiRouter.post('burger', async (req, res) => {
+    console.log("HIT")
+    try {
+      const burgerData = req.body;
+      await DB.addBurger(burgerData);
+      res.status(201).send({ msg: 'Burger added successfully' });
+    } catch (error) {
+      console.error(error);
+      res.status(500).send({ msg: 'Internal server error' });
+    }
+  });
 
 // Default error handler
 app.use(function (err, req, res, next) {
