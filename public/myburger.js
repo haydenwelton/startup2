@@ -35,10 +35,36 @@ function createCards(burgers) {
     name.innerText = item.name;
     card.appendChild(name);
 
-    //Create details element
-    const details = document.createElement("p");
-    details.innerText = item.description;
-    card.appendChild(details);
+//Create view details button
+const viewDetails = document.createElement("button");
+viewDetails.innerText = "View Description";
+let popup = null;
+viewDetails.addEventListener("click", (event) => {
+  if (popup && popup.parentNode) {
+    popup.parentNode.removeChild(popup);
+    popup = null;
+    return;
+  }
+
+  popup = document.createElement("div");
+  popup.classList.add("popup");
+  const popupText = document.createElement("p");
+  popupText.innerText = item.description;
+  popup.appendChild(popupText);
+
+  const rect = event.target.getBoundingClientRect();
+  const buttonCenter = rect.left + rect.width / 2;
+  const popupWidth = popup.offsetWidth;
+  const popupLeft = buttonCenter - popupWidth / 2;
+  popup.style.top = rect.top - popup.offsetHeight - 10 + "px";
+  popup.style.left = Math.max(popupLeft, 10) + "px";
+
+  document.body.appendChild(popup);
+});
+card.appendChild(viewDetails);
+
+card.style.margin = "20px";
+card.style.overflow = "hidden";
 
     container.appendChild(card);
   });
