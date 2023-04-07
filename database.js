@@ -1,20 +1,20 @@
-const { MongoClient } = require('mongodb');
-const bcrypt = require('bcrypt');
-const uuid = require('uuid');
+const { MongoClient } = require("mongodb");
+const bcrypt = require("bcrypt");
+const uuid = require("uuid");
 
 const userName = process.env.MONGOUSER;
 const password = process.env.MONGOPASSWORD;
 const hostname = process.env.MONGOHOSTNAME;
 
 if (!userName) {
-  throw Error('Database not configured. Set environment variables');
+  throw Error("Database not configured. Set environment variables");
 }
 
 const url = `mongodb+srv://haywelton:9l7UxJPWvpRzRPdu@myservice.oqtkrzk.mongodb.net/?`;
 
 const client = new MongoClient(url);
-const userCollection = client.db('startup').collection('users');
-const burgerCollection = client.db('startup').collection('burgers');
+const userCollection = client.db("startup").collection("users");
+const burgerCollection = client.db("startup").collection("burgers");
 
 function getUser(email) {
   return userCollection.findOne({ email: email });
@@ -39,18 +39,18 @@ async function createUser(email, password) {
 }
 
 function addBurger(burger) {
-    console.log("HIT ADD")
+  console.log("HIT ADD");
   burgerCollection.insertOne(burger);
 }
 
-// async function getUserBurgers(email) {
-//     const burgers = await burgerCollection.find({ email: email }).toArray();
-//     return burgers;
-// }
+async function getUserBurgers(email) {
+  const burgers = await burgerCollection.find({ user: email }).toArray();
+  return burgers;
+}
 
 function getAllBurgers() {
-    // Return all burgers from mongo burger collection
-    return burgerCollection.all();
+  // Return all burgers from mongo burger collection
+  return burgerCollection.all();
 }
 
 module.exports = {
@@ -58,6 +58,6 @@ module.exports = {
   getUserByToken,
   createUser,
   addBurger,
-//   getUserBurgers,
+  getUserBurgers,
   getAllBurgers,
 };
