@@ -48,9 +48,10 @@ async function getUserBurgers(email) {
   return burgers;
 }
 
-function getAllBurgers() {
+async function getAllBurgers() {
   // Return all burgers from mongo burger collection
-  return burgerCollection.all();
+  const burgers = await burgerCollection.find().toArray();
+  return burgers;
 }
 
 module.exports = {
