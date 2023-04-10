@@ -12,6 +12,7 @@ const assembleBurger = (ingredients) => {
   
 
 function createAllCards(burgers) {
+    burgers = burgers.reverse();
     burgers.forEach((item) => {
       //Create card
       const card = document.createElement("div");
