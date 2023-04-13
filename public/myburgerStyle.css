@@ -6,6 +6,11 @@
     color: white
 }
 
+.card .name {
+    position: relative;
+    z-index: 1;
+  }
+
 .nav {
     height: 50px;
     width: 100%;
@@ -91,9 +96,9 @@ body {
 }
 
 h1 {
-    color: var(--meat-dark);
+    color: var(--meat-light);
     font-family: "Mouse Memoirs", sans-serif;
-    letter-spacing: 8px;
+    letter-spacing: 6px;
     font-size: 3rem;
     text-align: center;
 }
@@ -1073,4 +1078,30 @@ h1 {
     border: 1px solid black;
     padding: 10px;
     z-index: 999;
+  }
+
+  h2 {
+    background-color: rgba(128, 128, 128, 0.5);
+    font-family: "Mouse Memoirs", sans-serif;
+    letter-spacing: 3px;
+    font-size: 2rem;
+    padding: 5px;
+    border-radius: 2px;
+    margin: -6px;
+  }
+
+p {
+    font-family: "Mouse Memoirs", sans-serif;
+    letter-spacing: 2px;
+    font-size: 1rem;
+}
+
+  .description {
+    overflow-y: scroll;
+    max-height: 150px; /* set a max height for the element */
+  }
+
+  .description::-webkit-scrollbar {
+    width: 0px;  /* remove scrollbar width */
+    height: 0px; /* remove scrollbar height */
   }

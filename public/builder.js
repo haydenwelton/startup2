@@ -1,7 +1,9 @@
-// PeerProxy.js initialization
-// const peer = new Peer();
-// let dataConnection;
-// const socket = new WebSocket("ws://localhost:4000");
+
+// const peerProxy = new PeerProxy("ws://localhost:4000");
+// const WebSocket = require('ws');
+
+// Instantiate a WebSocket object that connects to the server
+// const ws = new WebSocket('ws://localhost:4000');
 
 
 const burger = document.getElementById("burger");
@@ -100,7 +102,9 @@ const create = (btn) => {
   console.log('saving')
   console.log('resetting')
   // saveBurger(burgerData)
-  submitBurger()
+  submitBurger();
+  const message = JSON.stringify({ type: 'userName + "created burger: " + burgerNameValue' });
+  ws.send(message);
 };
 
 const submitBurger = async () => {

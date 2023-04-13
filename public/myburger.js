@@ -35,44 +35,30 @@ function createMyCards(burgers) {
     //Create name element
     const name = document.createElement("h2");
     name.innerText = item.name;
+    name.style.position = 'relative'; 
+    name.style.zIndex = "100"; // set higher z-index value for name element
     card.appendChild(name);
 
-//Create view details button
-const viewDetails = document.createElement("button");
-viewDetails.innerText = "View Description";
-let popup = null;
-viewDetails.addEventListener("click", (event) => {
-  if (popup && popup.parentNode) {
-    popup.parentNode.removeChild(popup);
-    popup = null;
-    return;
-  }
+    //Create description element
+    const description = document.createElement("p");
+    description.innerText = item.description;
+    description.classList.add("description"); // add description class
+    if (!item.description) {
+      description.innerText = "- - -"; // add space character if no description
+    }
 
-  popup = document.createElement("div");
-  popup.classList.add("popup");
-  const popupText = document.createElement("p");
-  popupText.innerText = item.description;
-  popup.appendChild(popupText);
+    // Wrap description in div for overlay
+    const descriptionWrapper = document.createElement("div");
+    descriptionWrapper.classList.add("description-wrapper");
+    descriptionWrapper.appendChild(description);
+    card.appendChild(descriptionWrapper);
 
-  const rect = event.target.getBoundingClientRect();
-  const buttonCenter = rect.left + rect.width / 2;
-  const popupWidth = popup.offsetWidth;
-  const popupLeft = buttonCenter - popupWidth / 2;
-  popup.style.top = rect.top - popup.offsetHeight - 10 + "px";
-  popup.style.left = Math.max(popupLeft, 10) + "px";
-
-  document.body.appendChild(popup);
-});
-card.appendChild(viewDetails);
-
-card.style.margin = "20px";
-card.style.overflow = "hidden";
+    card.style.margin = "20px";
+    card.style.overflow = "hidden";
 
     container.appendChild(card);
   });
 }
-
-
 
 const getMyBurgers = async () => {
   try {
