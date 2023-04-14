@@ -1,11 +1,14 @@
 @import url("https://fonts.googleapis.com/css2?family=Raleway:wght@500;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Mouse+Memoirs&display=swap");
 
 .home-container {
   margin-top: 10vh;
   width: 100%;
   display: flex;
-  z-index: 100;
-  overflow: auto;
+  position: relative;
+  z-index: 1;
+  overflow-y: hidden;
+  overflow-x: hidden;
   min-height: 100vh;
   align-items: center;
   border-color: var(--dl-color-gray-black);
@@ -14,18 +17,24 @@
   justify-content: flex-start;
 }
 .home-image {
+  position: relative;
+  margin-top: 90px;
   width: 464px;
   height: 277px;
   object-fit: cover;
 }
+
+
 .home-text {
-  width: 551px;
-  height: 50px;
-  font-size: 4em;
+  position: absolute;
+  transform: translateY(320px);
   align-self: center;
   text-align: center;
-  font-family: "Raleway";
+  font-family: "Mouse Memoirs", sans-serif;
+  font-size: 2px;
   border-radius: var(--dl-radius-radius-radius4);
+  color: white;
+  letter-spacing: 6px;
 }
 
 .home-text2 {
@@ -59,23 +68,43 @@
 }
 
 .Loginbars {
-  font-family: "Raleway";
+  font-size: 25px;
+  font-family: "Mouse Memoirs", sans-serif;
   padding-right: 10px;
+  color: white;
+  letter-spacing: 3px;
+
 }
 
 .LoginHeader {
-  font-family: "Raleway";
+  font-size: 25px;
+  font-family: "Mouse Memoirs", sans-serif;
   height: 5px;
   padding-bottom: 10px;
+  color: white;
+  letter-spacing: 3px;
 }
 
 .SignIn {
-  font-family: "Raleway";
+  font-size: 20px;
   background: black;
   padding: 5px;
   color: white;
   border: gray;
-  border-radius: 5px
+  border-radius: 5px;
+  font-family: "Mouse Memoirs", sans-serif;
+  letter-spacing: 3px;
+}
+
+.Register {
+  font-size: 20px;
+  background: black;
+  padding: 5px;
+  color: white;
+  border: gray;
+  border-radius: 5px;
+  font-family: "Mouse Memoirs", sans-serif;
+  letter-spacing: 3px;
 }
 
 
@@ -83,6 +112,7 @@
 
 
 body {
+  overflow-y: hidden;
   margin: 0px;
   font-family: "Raleway", sans-serif;
 }
@@ -327,7 +357,7 @@ body {
   }
   .nav > #nav-check:checked ~ .nav-links {
     height: calc(100vh - 50px);
-    overflow-y: auto;
+    overflow-y: hidden;
   }
 }
 
@@ -523,3 +553,72 @@ body {
   bottom: 10px;
   right: 10px;
 }
+
+#stars {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  transform: translateY(90px);
+}
+
+.burger-animation {
+  animation-name: moveUpDown;
+  animation-duration: 1s;
+  animation-timing-function: ease-in-out;
+  animation-direction: alternate;
+  animation-iteration-count: infinite;
+}
+
+@keyframes moveUpDown {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+
+.header-animation {
+  animation-name: growShrink;
+  animation-duration: 10s;
+  animation-timing-function: ease-in-out;
+  animation-direction: alternate;
+  animation-iteration-count: infinite;
+}
+
+@keyframes growShrink {
+  0% {
+    font-size: 3rem;
+  }
+  50% {
+    font-size: 3.5rem;
+  }
+  100% {
+    font-size: 3rem;
+  }
+}
+
+#loginControls {
+  position: absolute;
+  transform: translateY(450px);
+}
+
+.button-group {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+
+
+
+

@@ -1,13 +1,11 @@
 <div>
   <link rel="stylesheet" href="index.css">
+  <link rel="stylesheet" href="myburgerStyle.css" />
+  <canvas id="stars"></canvas>
   <div class="home-container">
-    <img
-      img src= "burger.png" alt="Burger"
-      class="home-image"
-    />
-    <h1 class="home-text">Build-A-Burger</h1>
+    <img src="burger.png" alt="Burger" class="home-image burger-animation" />
+    <h1 class="home-text header-animation">Build A Burger</h1>
     <div id="loginControls" style="display: none">
-      <h3 class="LoginHeader">Login</h3>
       <div class="home-row1">
         <span class ="Loginbars">Username:  </span>
         <input type="text" class="input" id="userName"/>
@@ -16,21 +14,15 @@
         <span class ="Loginbars">Password:  </span>
         <input type="text" class="input" id="userPassword"/>
       </div>
-      <button class="SignIn" onclick="loginUser()">Sign in</button>
-      <button class="Register" onclick="createUser()">Register</button>
+      <div class="button-group">
+        <button class="Register" onclick="createUser()">Register</button>
+        <button class="SignIn" onclick="loginUser()">Sign in</button>
+      </div>
     </div>
-    <div id="playControls" style="display: none">
-      <button type="button" class="btn btn-primary" onclick="play()">
-        Play
-      </button>
-      <button type="button" class="btn btn-secondary" onclick="logout()">
-        Logout
-      </button>
     </div>
-    <a href="myburger.html">Temporary link to other pages</a>
     <div class="github-link">
-  <a href="https://github.com/haydenwelton/startup2" target="_blank">View on GitHub</a>
-</div>
+      <a href="https://github.com/haydenwelton/startup2" target="_blank">View on GitHub</a>
+    </div>
   </div>
   <script src="login.js"></script>
   <script
